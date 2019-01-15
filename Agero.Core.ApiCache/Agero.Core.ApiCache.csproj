@@ -20,6 +20,7 @@
         <RepositoryType>git</RepositoryType>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <PublishRepositoryUrl>true</PublishRepositoryUrl> 
         <RootNamespace>Agero.Core.ApiCache</RootNamespace>
         <AssemblyName>Agero.Core.ApiCache</AssemblyName>
@@ -29,11 +30,6 @@
         <None Include="..\LICENSE.md" Pack="true" PackagePath="LICENSE.md" />
     </ItemGroup>
 
-    <PropertyGroup>
-      <GenerateDocumentationFile>true</GenerateDocumentationFile>
-      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    </PropertyGroup>
-  
     <ItemGroup>
       <PackageReference Include="Agero.Core.Checker" Version="1.0.11" />
     </ItemGroup>
