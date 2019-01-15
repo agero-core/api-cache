@@ -1,45 +1,89 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Agero.Core.ApiCache.Models;
 
 namespace Agero.Core.ApiCache.Web.Controllers
 {
     [RoutePrefix("cache")]
     public class CacheController : ApiController
     {
-        private static readonly Dictionary<string, object> _cacheData = new Dictionary<string, object>();
+        private static readonly Dictionary<string, object> _asyncCache = new Dictionary<string, object>();
+
+        private static readonly Dictionary<string, object> _cache = new Dictionary<string, object>();
+
+        private const int _cacheIncrementSize = 5;
 
         private static readonly AsyncCacheManager _asyncCacheManager =
-            new AsyncCacheManager(clearCache: () => { _cacheData.Clear(); },
-                getCacheDataAsync: async () => await Task.FromResult(_cacheData));
+            new AsyncCacheManager(
+                    clearCache: () =>  _asyncCache.Clear() ,
+                    getCacheDataAsync: async () => await Task.FromResult(_asyncCache)
+                );
 
-        private static void GenerateCache(int cacheSize)
+        private static readonly CacheManager _cacheManager =
+            new CacheManager(
+                clearCache: () => _cache.Clear(),
+                getCacheData:  () => _cache
+            );
+
+        private static void GenerateCache(Dictionary<string, object> cache)
         {
-            for(int i = 0; i < cacheSize; i++)
-                _cacheData.Add("cacheKey"+i, "cacheValue"+i);
+            var cacheStartIndex = cache.Count;
+            var cacheEndIndex = cacheStartIndex + +_cacheIncrementSize;
+
+            for (var i = cacheStartIndex; i < cacheEndIndex; i++)
+                cache.Add("cacheKey"+i, "cacheValue"+i);
+        }
+
+        [Route("asyncClear")]
+        [HttpPost]
+        public async Task<CacheInfo> ClearAsyncCache()
+        {
+            await _asyncCacheManager.ClearCacheAsync();
+
+            return await _asyncCacheManager.GetCacheInfoAsync();
+        }
+
+        [Route("asyncCache")]
+        [HttpGet]
+        public async Task<CacheInfo> GetAsyncCache()
+        {
+            return await _asyncCacheManager.GetCacheInfoAsync();
+        }
+
+        [Route("asyncCreate")]
+        [HttpPost]
+        public async Task<CacheInfo> CreateAsyncCache()
+        {
+            GenerateCache(_asyncCache);
+
+            return await _asyncCacheManager.GetCacheInfoAsync();
         }
 
         [Route("clear")]
-        [HttpGet]
-        public async Task ClearCache()
+        [HttpPost]
+        public CacheInfo ClearCache()
         {
-            await _asyncCacheManager.ClearCacheAsync();
+             _cacheManager.ClearCache();
+
+            return _cacheManager.GetCacheInfo();
         }
 
         [Route("")]
         [HttpGet]
-        public async Task GetCache()
+        public async Task<CacheInfo> GetCache()
         {
-            await _asyncCacheManager.GetCacheInfoAsync();
+            return await _asyncCacheManager.GetCacheInfoAsync();
         }
 
         [Route("create")]
         [HttpPost]
-        public async Task CreateCache()
+        public CacheInfo CreateCache()
         {
-            GenerateCache(5);
+            GenerateCache(_cache);
 
-            await _asyncCacheManager.GetCacheInfoAsync();
+            return  _cacheManager.GetCacheInfo();
         }
+
     }
 }
