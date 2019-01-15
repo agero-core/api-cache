@@ -8,25 +8,25 @@ namespace Agero.Core.ApiCache.Web.Controllers
     [RoutePrefix("cache")]
     public class CacheController : ApiController
     {
-        private static readonly Dictionary<string, object> _asyncCache = new Dictionary<string, object>();
+        private static readonly IDictionary<string, object> _asyncCache = new Dictionary<string, object>();
 
-        private static readonly Dictionary<string, object> _cache = new Dictionary<string, object>();
+        private static readonly IDictionary<string, object> _cache = new Dictionary<string, object>();
 
         private const int _cacheIncrementSize = 5;
 
-        private static readonly AsyncCacheManager _asyncCacheManager =
+        private static readonly IAsyncCacheManager _asyncCacheManager =
             new AsyncCacheManager(
                     clearCache: () =>  _asyncCache.Clear() ,
                     getCacheDataAsync: async () => await Task.FromResult(_asyncCache)
                 );
 
-        private static readonly CacheManager _cacheManager =
+        private static readonly ICacheManager _cacheManager =
             new CacheManager(
                 clearCache: () => _cache.Clear(),
                 getCacheData:  () => _cache
             );
 
-        private static void GenerateCache(Dictionary<string, object> cache)
+        private static void GenerateCache(IDictionary<string, object> cache)
         {
             var cacheStartIndex = cache.Count;
             var cacheEndIndex = cacheStartIndex + +_cacheIncrementSize;
@@ -84,6 +84,5 @@ namespace Agero.Core.ApiCache.Web.Controllers
 
             return  _cacheManager.GetCacheInfo();
         }
-
     }
 }
