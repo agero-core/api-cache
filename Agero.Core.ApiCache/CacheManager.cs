@@ -1,4 +1,5 @@
 ﻿using Agero.Core.ApiCache.Models;
+using Agero.Core.Checker;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Agero.Core.ApiCache
             Action<string, object> logInfo = null, Action<string, object> logError = null, 
             Func<int> getClearIntervalInHours = null, Func<int> getThreadSleepTimeInMinutes = null)
         {
-            Helpers.Checker.ArgumentIsNull(clearCache, "clearCache");
+            Check.ArgumentIsNull(clearCache, "clearCache");
 
             _clearCache = clearCache;
             _getCacheData = getCacheData ?? (() => null);
@@ -112,7 +113,7 @@ namespace Agero.Core.ApiCache
                     Timestamp = UtcNow;
 
                     var threadSleepTimeInMinutes = _getThreadSleepTimeInMinutes();
-                    Helpers.Checker.Assert(threadSleepTimeInMinutes > 0, "threadSleepTimeInMinutes > 0");
+                    Check.Assert(threadSleepTimeInMinutes > 0, "threadSleepTimeInMinutes > 0");
 
                     await Task.Delay(TimeSpan.FromMinutes(threadSleepTimeInMinutes), cancellationToken);
                 }
@@ -128,7 +129,7 @@ namespace Agero.Core.ApiCache
                 if (!force)
                 {
                     var clearIntervalInHours = _getClearIntervalInHours();
-                    Helpers.Checker.Assert(clearIntervalInHours > 0, "clearCacheIntervalInHours > 0");
+                    Check.Assert(clearIntervalInHours > 0, "clearCacheIntervalInHours > 0");
 
                     if (SkipCacheClear(clearIntervalInHours))
                     {

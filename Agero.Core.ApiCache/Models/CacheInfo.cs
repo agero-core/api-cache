@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Agero.Core.Checker;
+using System;
 using System.Runtime.Serialization;
 
 namespace Agero.Core.ApiCache.Models
@@ -10,7 +11,7 @@ namespace Agero.Core.ApiCache.Models
         /// <summary>Constructor</summary>
         public CacheInfo(CacheAgentInfo agent, DateTimeOffset clearTime, object data = null)
         {
-            Helpers.Checker.ArgumentIsNull(agent, "agent");
+            Check.ArgumentIsNull(agent, "agent");
 
             Agent = agent;
             ClearTime = clearTime;

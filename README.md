@@ -2,6 +2,7 @@
 
 API cache manager library for .NET Framework.
 
+## Usage:
 Create instance:
 ```csharp
 IDictionary<string, object> _cache =

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Agero.Core.Checker;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Hosting;
@@ -72,7 +73,7 @@ namespace Agero.Core.ApiCache
         /// <param name="clearIntervalInHours">Clear cache interval in hours</param>
         protected bool SkipCacheClear(int clearIntervalInHours)
         {
-            Helpers.Checker.Argument(clearIntervalInHours > 0, "learIntervalInHours > 0");
+            Check.Argument(clearIntervalInHours > 0, "learIntervalInHours > 0");
 
             return ClearTime.AddHours(clearIntervalInHours) > UtcNow;
         }
