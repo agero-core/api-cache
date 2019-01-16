@@ -9,7 +9,7 @@
         <Company>Agero Inc.</Company>
         <Copyright>Copyright © Agero 2019</Copyright>
         <Product>APICache</Product>
-        <Description>API cache manager library</Description>
+        <Description>API cache manager library for .NET Framework</Description>
         <Title>Api Cache</Title>
         <PackageProjectUrl>https://github.com/agero-core/api-cache</PackageProjectUrl>
         <PackageReleaseNotes></PackageReleaseNotes>
