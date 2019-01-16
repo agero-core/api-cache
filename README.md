@@ -1,4 +1,4 @@
-# api-cache
+# Api Cache
 
 API cache manager library for .NET Framework.
 
@@ -32,14 +32,14 @@ IAsyncCacheManager _asyncCacheManager =
 
 Clear Cache:
 ```csharp
-    await _asyncCacheManager.ClearCacheAsync();  
+await _asyncCacheManager.ClearCacheAsync();  
 ```
 
 Get Cache:
 ```csharp
-    CacheInfo cacheInfo = await _asyncCacheManager.GetCacheInfoAsync();  
+CacheInfo cacheInfo = await _asyncCacheManager.GetCacheInfoAsync();  
 
-    var json = JsonConvert.SerializeObject(cacheInfo);  
+var json = JsonConvert.SerializeObject(cacheInfo);  
 ```
 
 The above code generates the below json.
