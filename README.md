@@ -29,3 +29,31 @@ IAsyncCacheManager _asyncCacheManager =
         );
 ```
 
+Clear Cache:
+```csharp
+    await _asyncCacheManager.ClearCacheAsync();  
+```
+
+Get Cache:
+```csharp
+    CacheInfo cacheInfo = await _asyncCacheManager.GetCacheInfoAsync();  
+
+    var json = JsonConvert.SerializeObject(cacheInfo);  
+```
+
+The above code generates the below json.
+```json
+{  
+   "agent":{  
+      "isStarted":true,
+      "timestamp":"2019-01-15T21:03:52.8622627+00:00",
+      "clearIntervalInHours":24,
+      "threadSleepTimeInMinutes":20
+   },
+   "clearTime":"2019-01-15T21:03:52.9128548+00:00",
+   "data":{  
+      "CacheKey1" : "CacheVal1",
+      "CacheKey2" : "CacheVal2"
+   }
+}
+```
