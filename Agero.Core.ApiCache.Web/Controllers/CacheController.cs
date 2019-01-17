@@ -71,9 +71,9 @@ namespace Agero.Core.ApiCache.Web.Controllers
 
         [Route("")]
         [HttpGet]
-        public async Task<CacheInfo> GetCache()
+        public CacheInfo GetCache()
         {
-            return await _asyncCacheManager.GetCacheInfoAsync();
+            return _cacheManager.GetCacheInfo();
         }
 
         [Route("create")]
