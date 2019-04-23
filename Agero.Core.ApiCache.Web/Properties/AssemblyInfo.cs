@@ -2,12 +2,12 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Agero.Core.ApiCache.Web")]
-[assembly: AssemblyDescription("Api Cache Web")]
-[assembly: AssemblyProduct("ApiCache")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyProduct("Agero.Core.ApiCache.Web")]
 
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Agero Inc.")]
-[assembly: AssemblyCopyright("Copyright © Agero 2018")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyCopyright("Copyright © 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

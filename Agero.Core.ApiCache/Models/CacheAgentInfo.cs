@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Agero.Core.Checker;
 
 namespace Agero.Core.ApiCache.Models
 {
@@ -10,6 +11,9 @@ namespace Agero.Core.ApiCache.Models
         /// <summary>Constructor</summary>
         public CacheAgentInfo(bool isStarted, DateTimeOffset? timestamp, int clearIntervalInHours, int threadSleepTimeInMinutes)
         {
+            Check.Argument(clearIntervalInHours > 0, "clearIntervalInHours > 0");
+            Check.Argument(threadSleepTimeInMinutes > 0, "threadSleepTimeInMinutes > 0");
+
             IsStarted = isStarted;
             Timestamp = timestamp;
             ClearIntervalInHours = clearIntervalInHours;
