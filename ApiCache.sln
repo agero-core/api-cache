@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agero.Core.ApiCache", "Agero.Core.ApiCache\Agero.Core.ApiCache.csproj", "{4C976BCE-885E-448A-93F2-CBBD80412630}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agero.Core.ApiCache.Web", "Agero.Core.ApiCache.Web\Agero.Core.ApiCache.Web.csproj", "{152A9CAC-F915-49F9-A5A8-0D12F4F36255}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C976BCE-885E-448A-93F2-CBBD80412630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C976BCE-885E-448A-93F2-CBBD80412630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C976BCE-885E-448A-93F2-CBBD80412630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C976BCE-885E-448A-93F2-CBBD80412630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{152A9CAC-F915-49F9-A5A8-0D12F4F36255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{152A9CAC-F915-49F9-A5A8-0D12F4F36255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{152A9CAC-F915-49F9-A5A8-0D12F4F36255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{152A9CAC-F915-49F9-A5A8-0D12F4F36255}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8647E406-821B-43A6-BDC1-1299AF106019}
+	EndGlobalSection
+EndGlobal
