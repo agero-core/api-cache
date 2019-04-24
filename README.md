@@ -1,19 +1,19 @@
 # API Cache
 
-API Cache .NET Framework (>= v4.6.1) library for in-process cache management in ASP.NET applications.
+API Cache is a **.NET Framework (>= v4.6.1)** library for in-memory cache management in ASP.NET applications.
 
 The library provides a background agent that periodically clears in-memory cache.
 
 ## Setup
-Create and setup instance of [ICacheManager](./Agero.Core.ApiCache/ICacheManager.cs) or [IAsyncCacheManager](./Agero.Core.ApiCache/IAsyncCacheManager.cs) in static context:
+Create and setup instance of [ICacheManager](./Agero.Core.ApiCache/ICacheManager.cs) or [IAsyncCacheManager](./Agero.Core.ApiCache/IAsyncCacheManager.cs) in a **static** context:
 ```csharp
 var cache = new Dictionary<string, object>();
 
 var cacheManager = new CacheManager(
 	// Method which clears cache
-	clearCache: () => _cache.Clear(),
+	clearCache: () => cache.Clear(),
 	// Method which returns cached data
-	getCacheData:  () => _cache,
+	getCacheData: () => cache,
 	// Setup info logging 
 	logInfo: (message, data) => Debug.WriteLine($"INFO: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
 	// Setup error logging 
@@ -41,13 +41,6 @@ cacheManager.ClearCache();
 ```
 
 Get agent status and cached data:
-```csharp
-var cacheInfo = cacheManager.GetCacheInfo(); 
-
-var json = JsonConvert.SerializeObject(cacheInfo);   
-```
-
-Get cache:
 ```csharp
 cache[Guid.NewGuid().ToString("N")] = Guid.NewGuid().ToString("N");
 
