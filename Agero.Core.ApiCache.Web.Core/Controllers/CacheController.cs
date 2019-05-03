@@ -1,22 +1,22 @@
-﻿using Agero.Core.ApiCache.Models;
-using Newtonsoft.Json;
-using System;
-using System.Diagnostics;
-using System.Web.Http;
+﻿using System;
+using Agero.Core.ApiCache.Models;
+using Agero.Core.Checker;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Agero.Core.ApiCache.Web.Controllers
+namespace Agero.Core.ApiCache.Web.Core.Controllers
 {
-    [RoutePrefix("cache")]
-    public class CacheController : ApiController
+    [Route("cache")]
+    [ApiController]
+    public class CacheController : ControllerBase
     {
-        private static readonly ICacheManager _cacheManager = new CacheManager(
-            clearCache: () => Cache.Instance.Clear(),
-            getCacheData:  () => Cache.Instance,
-            logInfo: (message, data) => Debug.WriteLine($"INFO: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
-            logError: (message, data) => Debug.WriteLine($"ERROR: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
-            getClearIntervalInHours: () => 1,
-            getThreadSleepTimeInMinutes: () => 5);
+        private readonly ICacheManager _cacheManager;
 
+        public CacheController(ICacheManager cacheManager)
+        {
+            Check.ArgumentIsNull(cacheManager, nameof(cacheManager));
+
+            _cacheManager = cacheManager;
+        }
 
         [Route("create")]
         [HttpPost]
