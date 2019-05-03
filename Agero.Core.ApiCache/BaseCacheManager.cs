@@ -18,7 +18,9 @@ namespace Agero.Core.ApiCache
         /// <summary>Default agent's sleep time in minutes between attempts for clearing cache</summary>
         public const int DEFAULT_THREAD_SLEEP_TIME_IN_MINUTES = 20;
 
+#if NET461
         private readonly object _syncRoot = new object();
+#endif
 
         /// <summary>Constructor</summary>
         protected BaseCacheManager() 
@@ -59,7 +61,6 @@ namespace Agero.Core.ApiCache
         }
 
 #if NETCOREAPP2_1
-        /// <summary> Starting point of the background cache agent </summary>
         internal async Task StartBackgroundTaskAsync(CancellationToken cancellationToken)
         {
             IsStarted = true;

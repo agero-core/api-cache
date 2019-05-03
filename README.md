@@ -27,7 +27,7 @@ var cacheManager = new CacheManager(
 	// Method which returns interval in hours when cache needs to be cleared again
 	getClearIntervalInHours: () => 1,
 	// Method which returns background thread's sleep time in minutes before attempting to clear cache again
-	getThreadSleepTimeInMinutes: () => 5);
+	getThreadSleepTimeInMinutes: () => 1);
 ```
 
 Only for .NET Core, add "API Cache" services to dependency injection container using [extension method](./Agero.Core.ApiCache/Extensions/ServiceCollectionExtensions.cs):

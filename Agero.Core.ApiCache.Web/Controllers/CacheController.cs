@@ -15,7 +15,7 @@ namespace Agero.Core.ApiCache.Web.Controllers
             logInfo: (message, data) => Debug.WriteLine($"INFO: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
             logError: (message, data) => Debug.WriteLine($"ERROR: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
             getClearIntervalInHours: () => 1,
-            getThreadSleepTimeInMinutes: () => 5);
+            getThreadSleepTimeInMinutes: () => 1);
 
 
         [Route("create")]

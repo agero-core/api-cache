@@ -20,13 +20,15 @@ namespace Agero.Core.ApiCache.Web.Core
                 logInfo: (message, data) => Debug.WriteLine($"INFO: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
                 logError: (message, data) => Debug.WriteLine($"ERROR: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
                 getClearIntervalInHours: () => 1,
-                getThreadSleepTimeInMinutes: () => 5);
+                getThreadSleepTimeInMinutes: () => 1);
 
             // Add cache manager to dependency injection container to inject it into controller
             services.AddSingleton<ICacheManager>(cacheManager);
 
             // Add "API Cache" services
             services.AddApiCache(cacheManager);
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
