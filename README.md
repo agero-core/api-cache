@@ -9,7 +9,7 @@ Let's assume we have an in-memory cache:
 ```csharp
 public static class Cache
 {
-	public static IDictionary<string, object> Instance { get; } = new Dictionary<string, object>();
+    public static IDictionary<string, object> Instance { get; } = new Dictionary<string, object>();
 }
 ```
 
