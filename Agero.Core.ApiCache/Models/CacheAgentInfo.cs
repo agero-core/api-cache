@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Agero.Core.Checker;
+using System;
 using System.Runtime.Serialization;
-using Agero.Core.Checker;
 
 namespace Agero.Core.ApiCache.Models
 {

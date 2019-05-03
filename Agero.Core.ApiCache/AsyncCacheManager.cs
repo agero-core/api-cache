@@ -1,8 +1,8 @@
 ﻿using Agero.Core.ApiCache.Models;
+using Agero.Core.Checker;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Agero.Core.Checker;
 
 namespace Agero.Core.ApiCache
 {

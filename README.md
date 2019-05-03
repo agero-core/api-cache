@@ -1,6 +1,6 @@
 # API Cache
 
-API Cache is a **.NET Framework (>= v4.6.1)** library for in-memory cache management in ASP.NET applications.
+API Cache is a **.NET Framework (>= v4.6.1)** and .NET Core (>=2.1) library for in-memory cache management in ASP.NET applications.
 
 The library provides a background agent that periodically clears in-memory cache.
 
@@ -22,6 +22,14 @@ var cacheManager = new CacheManager(
 	getClearIntervalInHours: () => 1,
 	// Method which returns background thread's sleep time in minutes before attempting to clear cache again
 	getThreadSleepTimeInMinutes: () => 5);
+```
+
+Only for .NET Core, add "API Cache" services to dependency injection container using [extension method](./Agero.Core.ApiCache/Extensions/ServiceCollectionExtensions.cs):
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+	services.AddApiCache(cacheManager);
+}
 ```
 
 ## Usage:
@@ -65,4 +73,4 @@ The above code generates the below JSON:
 }
 ```
 
-For additional usage related info please see [Agero.Core.ApiCache.Web](./Agero.Core.ApiCache.Web/).
+For additional usage related info please see [Agero.Core.ApiCache.Web](./Agero.Core.ApiCache.Web/) (.NET Framework) and [Agero.Core.ApiCache.Web.Core](./Agero.Core.ApiCache.Web.Core/).
