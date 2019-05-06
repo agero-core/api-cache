@@ -1,19 +1,25 @@
 # API Cache
 
-API Cache is a **.NET Framework (>= v4.6.1)** library for in-memory cache management in ASP.NET applications.
+API Cache is a **.NET Framework (>= v4.6.1)** and **.NET Core (>=2.1)** library for in-memory cache management in ASP.NET applications.
 
 The library provides a background agent that periodically clears in-memory cache.
 
 ## Setup
+Let's assume we have an in-memory cache:
+```csharp
+public static class Cache
+{
+    public static IDictionary<string, object> Instance { get; } = new Dictionary<string, object>();
+}
+```
+
 Create and setup instance of [ICacheManager](./Agero.Core.ApiCache/ICacheManager.cs) or [IAsyncCacheManager](./Agero.Core.ApiCache/IAsyncCacheManager.cs) in a **static** context:
 ```csharp
-var cache = new Dictionary<string, object>();
-
 var cacheManager = new CacheManager(
 	// Method which clears cache
-	clearCache: () => cache.Clear(),
+	clearCache: () => Cache.Instance.Clear(),
 	// Method which returns cached data
-	getCacheData: () => cache,
+	getCacheData: () => Cache.Instance,
 	// Setup info logging 
 	logInfo: (message, data) => Debug.WriteLine($"INFO: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
 	// Setup error logging 
@@ -21,7 +27,15 @@ var cacheManager = new CacheManager(
 	// Method which returns interval in hours when cache needs to be cleared again
 	getClearIntervalInHours: () => 1,
 	// Method which returns background thread's sleep time in minutes before attempting to clear cache again
-	getThreadSleepTimeInMinutes: () => 5);
+	getThreadSleepTimeInMinutes: () => 1);
+```
+
+Only for .NET Core, add "API Cache" services to dependency injection container using [extension method](./Agero.Core.ApiCache/Extensions/ServiceCollectionExtensions.cs):
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddApiCache(cacheManager);
+}
 ```
 
 ## Usage:
@@ -42,7 +56,7 @@ cacheManager.ClearCache();
 
 Get agent status and cached data:
 ```csharp
-cache[Guid.NewGuid().ToString("N")] = Guid.NewGuid().ToString("N");
+Cache.Instance[Guid.NewGuid().ToString("N")] = Guid.NewGuid().ToString("N");
 
 var cacheInfo = cacheManager.GetCacheInfo();  
 
@@ -65,4 +79,4 @@ The above code generates the below JSON:
 }
 ```
 
-For additional usage related info please see [Agero.Core.ApiCache.Web](./Agero.Core.ApiCache.Web/).
+For additional usage related info please see [Agero.Core.ApiCache.Web](./Agero.Core.ApiCache.Web/) (.NET Framework) and [Agero.Core.ApiCache.Web.Core](./Agero.Core.ApiCache.Web.Core/) (.NET Core).

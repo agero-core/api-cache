@@ -2,7 +2,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Hosting;
+#if NET461
+using System.Web.Hosting;    
+#endif
+
 
 namespace Agero.Core.ApiCache
 {
@@ -15,14 +18,18 @@ namespace Agero.Core.ApiCache
         /// <summary>Default agent's sleep time in minutes between attempts for clearing cache</summary>
         public const int DEFAULT_THREAD_SLEEP_TIME_IN_MINUTES = 20;
 
+#if NET461
         private readonly object _syncRoot = new object();
+#endif
 
         /// <summary>Constructor</summary>
         protected BaseCacheManager() 
         {
             ClearTime = UtcNow;
 
+#if NET461
             Start();
+#endif
         }
 
         /// <summary>Current UTC time</summary>
@@ -42,7 +49,9 @@ namespace Agero.Core.ApiCache
         {
             IsStarted = true;
 
+#if NET461
             RunStoppedThread();
+#endif
         }
 
         /// <summary>Stops clear cache agent</summary>
@@ -51,6 +60,25 @@ namespace Agero.Core.ApiCache
             IsStarted = false;
         }
 
+#if NETCOREAPP2_1
+        internal async Task StartBackgroundTaskAsync(CancellationToken cancellationToken)
+        {
+            IsStarted = true;
+
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                if (!IsStarted)
+                {
+                    await Task.Delay(10_000, cancellationToken);
+                    continue;
+                }
+
+                await RunThreadAsync(cancellationToken);
+            }
+        }
+#endif
+
+#if NET461
         private void RunStoppedThread()
         {
             if (!IsStarted)
@@ -64,6 +92,7 @@ namespace Agero.Core.ApiCache
                 HostingEnvironment.QueueBackgroundWorkItem(async token => await RunThreadAsync(token));
             }
         }
+#endif
 
         /// <summary>Runs clear cache agent's logic</summary>
         /// <param name="cancellationToken">Cancellation token</param>
